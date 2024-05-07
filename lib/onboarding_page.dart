@@ -67,30 +67,10 @@ class OnboardingPage extends StatelessWidget {
                           width: MediaQuery.of(context).size.width * 0.4,
                           height: MediaQuery.of(context).size.height * 0.09,
                           decoration: BoxDecoration(),
-                          child: ElevatedButton(
-                              style: ButtonStyle(
-                                  side: MaterialStatePropertyAll(
-                                      BorderSide(color: Colors.white)),
-                                  shape: MaterialStatePropertyAll(
-                                      RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(7)))),
-                                  backgroundColor: MaterialStatePropertyAll(
-                                      Color.fromRGBO(47, 128, 237, 1))),
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => LoginPage(),
-                                    ));
-                              },
-                              child: Text(
-                                "Get Started",
-                                style: GoogleFonts.nunito(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500),
-                              )),
+                          child: ButtonCustomAuthWidget(
+                            name: "Get Started",
+                            route: LoginPage(),
+                          ),
                         ),
                       )
                     ],
@@ -102,5 +82,38 @@ class OnboardingPage extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class ButtonCustomAuthWidget extends StatelessWidget {
+  final String name;
+  final Widget route;
+  const ButtonCustomAuthWidget({
+    super.key,
+    required this.name,
+    required this.route
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+        style: ButtonStyle(
+            side: MaterialStatePropertyAll(BorderSide(color: Colors.white)),
+            shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(7)))),
+            backgroundColor:
+                MaterialStatePropertyAll(Color.fromRGBO(47, 128, 237, 1))),
+        onPressed: () {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => route,
+              ));
+        },
+        child: Text(
+          name,
+          style: GoogleFonts.nunito(
+              fontSize: 20, color: Colors.white, fontWeight: FontWeight.w500),
+        ));
   }
 }
